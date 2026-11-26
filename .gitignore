@@ -1,0 +1,16 @@
+# OS とエディターのローカルファイル
+.DS_Store
+*.swp
+
+# ローカル設定・環境変数（サンプルは追跡する）
+.env
+.env.*
+!.env.example
+!.env.template
+!.env.sample
+.claude/settings.local.json
+.claude/code-reviewed
+
+# 依存関係・ローカル実行の生成物
+node_modules/
+.wrangler/
