@@ -1,0 +1,5 @@
+#!/bin/sh
+# jdtlsはJDK 21で動かす
+JAVA_HOME=/usr/lib/jvm/temurin-21
+export JAVA_HOME
+exec /opt/jdtls/bin/jdtls "$@"

@@ -1,0 +1,21 @@
+name: ec-chapter05
+
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: ec
+      POSTGRES_PASSWORD: ec
+      POSTGRES_DB: postgres
+    ports:
+      - "55432:5432"
+    healthcheck:
+      # 初期化中の一時サーバーはTCPで待ち受けないため、TCPで確かめて初期化の完了を待つ
+      test: ["CMD-SHELL", "pg_isready -U ec -h 127.0.0.1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+      - ../catalog-service/src/main/resources/db:/schemas/catalog:ro
+      - ../order-service/src/main/resources/db:/schemas/orders:ro

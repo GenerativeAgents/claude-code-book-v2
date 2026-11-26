@@ -1,0 +1,16 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://db:5432/orders}
+    username: ${DB_USER:ec}
+    password: ${DB_PASSWORD:ec}
+  sql:
+    init:
+      mode: never
+  messages:
+    basename: messages-common,messages
+
+catalog:
+  base-url: ${CATALOG_BASE_URL:http://localhost:8081}

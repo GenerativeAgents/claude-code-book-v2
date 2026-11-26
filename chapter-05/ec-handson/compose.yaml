@@ -1,0 +1,35 @@
+services:
+  app:
+    build:
+      context: docker/app
+      dockerfile: Dockerfile
+    user: vscode
+    working_dir: /workspace
+    command: sleep infinity
+    environment:
+      CLAUDE_CONFIG_DIR: /home/vscode/.claude
+      DISABLE_UPDATES: "1"
+      # psqlと教材のスクリプトは、この接続先を既定で使う。
+      PGHOST: db
+      PGUSER: ec
+      PGPASSWORD: ec
+    volumes:
+      - .:/workspace:cached
+      - claude-config:/home/vscode/.claude
+      - maven-cache:/home/vscode/.m2
+      - jdtls-cache:/home/vscode/.cache/jdtls
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    extends:
+      file: docker/compose.yaml
+      service: db
+    # appコンテナからdb:5432へ接続するため、ホストへポートを公開しない。
+    ports: !reset []
+
+volumes:
+  claude-config:
+  maven-cache:
+  jdtls-cache:

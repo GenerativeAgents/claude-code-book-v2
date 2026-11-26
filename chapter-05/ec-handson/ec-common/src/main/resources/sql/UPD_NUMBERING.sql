@@ -1,0 +1,3 @@
+-- SQL-ID: UPD_NUMBERING
+-- 用途: 共通 採番（払い出した値を現在値として更新する）
+UPDATE M_NUMBERING SET CURRENT_VALUE = ? WHERE NUMBERING_KEY = ?
